@@ -1,10 +1,14 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema;
+
+//create schema for Todo
 var TodoSchema = new Schema({
 	title: String,
 	user: String,
 	star: Boolean,
-	mark: String
+	tag: String,
+	done: Boolean
 });
-mongoose.model('Todo', TodoSchema);
 
+//compile schema to model
+module.exports = mongoose.model('Todo', TodoSchema);

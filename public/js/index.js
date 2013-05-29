@@ -7,11 +7,11 @@ define(function(require, exports, module) {
 	 * ------------------------------------------------------
 	 */
 	var Todo = Backbone.Model.extend({
-		_id 	: '',
-		title	: '',
-		tag	: '',
-		star	: false,
-		user	: ''
+		_id: '',
+		title: '',
+		tag: '',
+		star: false,
+		user: ''
 	});
 
 	/**
@@ -23,11 +23,15 @@ define(function(require, exports, module) {
 		model: Todo,
 
 		filterByStar: function() {
-			return this.where({star:true});
+			return this.where({
+				star: true
+			});
 		},
 
 		filterByMark: function(markValue) {
-			return this.where({tag: markValue});
+			return this.where({
+				tag: markValue
+			});
 		},
 
 		getAllTags: function() {
@@ -49,37 +53,56 @@ define(function(require, exports, module) {
 
 		initialize: function() {
 			this.todoList = new TodoList();
-			this.filterTodos();
+			this.filterTodos({
+				star: true
+			});
 		},
 
 		/**
 		 * @method filterTodos
 		 * 根据传入的参数不同，来获取todo项
-		 * 
-		 * @param  {Object} data
 		 */
 		filterTodos: function(data) {
 			var me = this;
 			$.ajax({
-				url: '/filterTodos',
+				url: '/api/filterTodos',
 				type: 'GET',
 				data: data,
 				success: function(data, textStatus, jqXHR) {
-					console.log(data.forEach(function(item) {
+					data.forEach(function(item) {
 						console.log(item);
-					}));
+					});
 					me.todoList.add(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {}
+			});
+		},
+
+		/**
+		 * @method addTodo
+		 * 添加一条Todo项
+		 */
+		addTodo: function(todo) {
+			var me = this;
+			$.ajax({
+				url: '/api/addTodo',
+				type: 'POST',
+				data: todo,
+				dataType: 'json',
+				timeout: 60000,
+				success: function(data, textStatus, jqXHR) {
+					console.log(data);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {}
 			});
 		}
 
-		
+
 
 	});
 
-	var globalNamespace = window.globalNamespace = {};
+	var todoApp = window.todoApp = {};
 
-	globalNamespace.todoAppView = new TodoAppView();
+	todoApp.todoAppView = new TodoAppView();
 
 });
