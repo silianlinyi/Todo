@@ -26,7 +26,6 @@ exports.login = function(req, res) {
 	});
 }
 
-
 /**
  * @method loginIn
  * 登录操作

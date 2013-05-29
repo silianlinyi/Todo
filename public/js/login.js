@@ -29,6 +29,7 @@ define(function(require, exports, module) {
 				dataType: 'json',
 				timeout: 60000,
 				success: function(data, textStatus, jqXHR) {
+					
 					if(data.resultCode === 0) {
 						window.location.replace('/');
 					} else {
