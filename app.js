@@ -19,7 +19,7 @@ mongoose.connect('mongodb://127.0.0.1/TodoApplication', function(err) {
 var app = express();
 // all environments
 app.engine('.html', require('ejs').__express);
-app.set('port', process.env.PORT || 8888);
+app.set('port', process.env.PORT || 80);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.use(express.favicon());

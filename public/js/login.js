@@ -29,9 +29,8 @@ define(function(require, exports, module) {
 				dataType: 'json',
 				timeout: 60000,
 				success: function(data, textStatus, jqXHR) {
-					
 					if(data.resultCode === 0) {
-						window.location.replace('/');
+						window.location.replace('/todos');
 					} else {
 						switch(data.resultCode) {
 							case 1000:
@@ -39,7 +38,9 @@ define(function(require, exports, module) {
 						}
 					}
 				},
-				error: function(jqXHR, textStatus, errorThrown) {}
+				error: function(jqXHR, textStatus, errorThrown) {
+
+				}
 			});
 
 		}

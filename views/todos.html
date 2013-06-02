@@ -9,6 +9,7 @@
         <!-- Le styles -->
         <link rel="stylesheet" type="text/css" href="/lib/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/lib/css/bootstrap-responsive.css">
+        <link rel="stylesheet" type="text/css" href="/lib/css/animate.css">
         <link rel="stylesheet" type="text/css" href="/lib/css/flat-ui.css">
         <link rel="stylesheet" type="text/css" href="/css/public.css">
         <link rel="stylesheet" type="text/css" href="/css/todos.css">
@@ -23,19 +24,35 @@
         <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="/ico/favicon.ico">
     </head>
-    <body id="login-app">
+    <body id="todos-app">
         <!--[if lt IE 8]>
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
         
         <% include /inc_navbar.html %>
 
-        <div class="container todos">
+        <div class="container todos-container">
 
+            <a href="#" class="btn btn-large btn-block">Add a Todo</a>
             
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>_id</th>
+                        <th>star</th>
+                        <th>tag</th>
+                        <th>title</th>
+                        <th>user</th>
+                        <th>done</th>
+                        <th>编辑</th>
+                        <th>删除</th>
+                    </tr>
+                </thead>
+                <tbody class="todos-list"></tbody>
+            </table>
 
-            
         </div>
+
 
         
         

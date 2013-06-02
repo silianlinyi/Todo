@@ -1,23 +1,26 @@
-var site = require('./controllers/site');
-	sign = require('./controllers/sign');
+var site = require('./controllers/site'),
+	API = require('./controllers/API');
 
 module.exports = function(app) {
 
 	app.get('/', site.index);
-	app.get('/signup', sign.signup);
-	app.get('/login', sign.login);
+	app.get('/signup', site.signup);
+	app.get('/login', site.login);
 	app.get('/todos', site.todos);
 
-	// GET
-	app.get('/api/filterTodos', site.filterTodos);
-	app.get('/api/getAllTags', site.getAllTags);
-	app.get('/api/filterTodos/star', site.star);
-	app.get('/api/filterTodos/unStar', site.unStar);
-	app.get('/api/loginOut', sign.loginOut);
+	/**
+	 * 以下为公共的GET API
+	 */
+	app.get('/api/filterTodos', API.filterTodos);
+	app.get('/api/getAllTags', API.getAllTags);
+	app.get('/api/filterTodos/star', API.star);
+	app.get('/api/filterTodos/unStar', API.unStar);
+	app.get('/api/loginOut', API.loginOut);
 
-
-	// POST
-	app.post('/api/addTodo', site.addTodo);
-	app.post('/api/loginIn', sign.loginIn);
+	/**
+	 * 以下为公共的POST API
+	 */
+	app.post('/api/addTodo', API.addTodo);
+	app.post('/api/loginIn', API.loginIn);
 
 }
