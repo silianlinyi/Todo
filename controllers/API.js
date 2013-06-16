@@ -84,6 +84,7 @@ module.exports = {
 				if (err) {
 					console.log(err);
 				}
+				req.session.username = user.username;
 				res.json({
 					resultCode: 0,
 					description: "注册成功"
