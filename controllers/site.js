@@ -65,6 +65,18 @@ module.exports = {
 		} else {
 			res.redirect('/login');
 		}
+	},
+
+	userInfo: function(req, res) {
+		if(!! req.session.username) {
+			res.render('userInfo', {
+				title: "用户详情",
+				hasLogin: true,
+				username: req.session.username
+			});
+		} else {
+			res.redirect('/login');
+		}
 	}
 
 

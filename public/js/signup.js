@@ -37,7 +37,6 @@ define(function(require, exports, module) {
 				username = $collection.$signupName.val(),
 				password = $collection.$signupPass.val(),
 				repeatPass = $collection.$signupRepeatPass.val();
-			
 
 			$.ajax({
 				url: '/api/signup',
@@ -50,7 +49,14 @@ define(function(require, exports, module) {
 				dataType: 'json',
 				timeout: 30000,
 				success: function(data, textStatus, jqXHR) {
-					
+					switch(data.resultCode) {
+						case 0:
+							alert(data.description);
+							window.location.replace('/userInfo')
+							break;
+						default:
+							alert(data.description);
+					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 

@@ -40,7 +40,56 @@ module.exports = {
 	 */
 	signup: function(req, res) {
 		var user = req.body;
-		res.json(user);
+
+		// 用户名或密码为空
+		if (!user.username || !user.password) {
+			res.json({
+				resultCode: 1002,
+				description: "用户名或密码不能为空"
+			});
+			return;
+		}
+
+		// 两次输入的密码不一致
+		if (user.password !== user.repeatPass) {
+			res.json({
+				resultCode: 1003,
+				description: "两次输入的密码不一致"
+			});
+			return;
+		}
+
+		User.findOne({
+			username: user.username
+		}, function(err, doc) {
+			if (err) {
+				console.log(err);
+			}
+
+			// 用户名已经被注册
+			if ( !! doc) {
+				res.json({
+					resultCode: 1004,
+					description: "用户名已经被注册"
+				});
+				return;
+			}
+
+			var newUser = new User({
+				username: user.username,
+				password: user.password
+			});
+
+			newUser.save(function(err) {
+				if (err) {
+					console.log(err);
+				}
+				res.json({
+					resultCode: 0,
+					description: "注册成功"
+				});
+			});
+		});
 	},
 
 	/**
@@ -98,7 +147,7 @@ module.exports = {
 		Todo.remove({
 			_id: query._id
 		}, function(err, doc) {
-			if(err) {
+			if (err) {
 				console.log(err);
 			}
 			res.json({

@@ -8,6 +8,7 @@ module.exports = function(app) {
 	app.get('/login', site.login);
 	app.get('/todos', site.todos);
 	app.get('/add', site.add);
+	app.get('/userInfo', site.userInfo);
 
 	/**
 	 * 以下为公共的GET API
