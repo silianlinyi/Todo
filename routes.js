@@ -7,6 +7,7 @@ module.exports = function(app) {
 	app.get('/signup', site.signup);
 	app.get('/login', site.login);
 	app.get('/todos', site.todos);
+	app.get('/add', site.add);
 
 	/**
 	 * 以下为公共的GET API
@@ -20,7 +21,11 @@ module.exports = function(app) {
 	/**
 	 * 以下为公共的POST API
 	 */
-	app.post('/api/addTodo', API.addTodo);
 	app.post('/api/loginIn', API.loginIn);
+	app.post('/api/signup', API.signup);
+	app.post('/api/addTodo', API.addTodo);
+	app.post('/api/deleteTodo', API.deleteTodo);
+
+	
 
 }

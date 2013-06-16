@@ -4,11 +4,11 @@ var mongoose = require('mongoose'),
 //create schema for Todo
 var TodoSchema = new Schema({
 	title: String,
-	user: String,
+	user_id: String,
 	star: Boolean,
 	tag: String,
 	done: Boolean
 });
 
 //compile schema to model
-module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('Todo', TodoSchema, 'todos');

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include /inc_head.html %>
+        <link rel="stylesheet" type="text/css" href="/css/add.css">
+    </head>
+    <body id="app-add">
+        <% include /inc_navbar.html %>
+        <div class="container add">
+            
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="todo-title">标题</label>
+                    <div class="controls">
+                        <input type="text" placeholder="请输入一个标题" id="todo-title">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="todo-tag">标签</label>
+                    <div class="controls">
+                        <input type="text" placeholder="请输入一个标签" id="todo-tag">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="todo-star">标星</label>
+                    <div class="controls">
+                        <input type="checkbox" id="todo-star">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <a class="btn" id="todo-add">添加</a>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        
+        
+        <script src="/seajs/sea.js" data-config="/js/config" data-main="/js/add" ></script>
+    </body>
+</html>

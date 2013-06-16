@@ -4,12 +4,39 @@
         <% include /inc_head.html %>
         <link rel="stylesheet" type="text/css" href="/css/signup.css">
     </head>
-    <body>
+    <body id="app-signup">
         <% include /inc_navbar.html %>
 
-        <div class="container signup">
+        <div class="container signup-container">
             
-
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>注册帐号</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="signup-name">用户名</label>
+                        <div class="controls">
+                            <input type="text" placeholder="please enter your name" id="signup-name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="signup-pass">密码</label>
+                        <div class="controls">
+                            <input type="password" placeholder="please enter your password" id="signup-pass">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="signup-repeat-pass">确认密码</label>
+                        <div class="controls">
+                            <input type="password" placeholder="" id="signup-repeat-pass">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <a class="btn btn-primary" id="signup-btn">注册</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
             
         </div>
 

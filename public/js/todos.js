@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 			star: false,
 			tag: "",
 			title: "",
-			user: "",
+			user_id: "",
 			done: false
 		}
 		
@@ -42,17 +42,23 @@ define(function(require, exports, module) {
 					'<td><%= star %></td>' +
 					'<td><%= tag %></td>' +
 					'<td><%= title %></td>' +
-					'<td><%= user %></td>' +
+					'<td><%= user_id %></td>' +
 					'<td><%= done %></td>' +
-					'<td><a href="#" class="btn btn-block btn-primary">编辑</a></td>' +
-					'<td><a href="#" class="btn btn-block btn-danger">删除</a></td>',
+					'<td><a href="#" class="btn btn-primary btn-edit">编辑</a></td>' +
+					'<td><a href="#" class="btn btn-danger btn-delete">删除</a></td>',
 
 		events: {
-
+			"click .btn-edit" 	: "editTodo",
+			"click .btn-delete" : "deleteTodo"
 		},
 
 		initialize: function() {
 
+			// when a model's attributes have changed.
+			this.listenTo(this.model, 'change', this.render);
+
+			// when a model is removed from a collection.
+            this.listenTo(this.model, 'remove', this.remove);
 		},
 
 		render: function() {
@@ -60,8 +66,35 @@ define(function(require, exports, module) {
 				tmpl = _.template(me.template);
 
 			me.$el.html(tmpl(me.model.toJSON()));
-
 			return this;
+		},
+
+		editTodo: function() {
+
+		},
+
+		/**
+		 * @method deleteTodo
+		 * 删除某一条Todo项
+		 */
+		deleteTodo: function() {
+			var me = this;
+
+			$.ajax({
+				url: "/api/deleteTodo",
+				type: "POST",
+				data: me.model.toJSON(),
+				dataType: 'json',
+				timeout: 30000,
+				success: function(data, textStatus, jqXHR) {
+					if(data.resultCode === 0) {
+						me.model.collection.remove(me.model);//从Collection中删除模型
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+
+				}
+			})
 		}
 
 	});
@@ -72,7 +105,7 @@ define(function(require, exports, module) {
 	 */
 	var TodoAppView = Backbone.View.extend({
 
-		el: "#todos-app",
+		el: "#app-todos",
 
 		events: {
 
@@ -80,10 +113,15 @@ define(function(require, exports, module) {
 
 		initialize: function() {
 
-			this.$todosList = this.$(".todos-list");
+			var me = this;
+
+			me.$collection = {
+				$todosList: me.$(".todos-list")
+			};
 
 			this.todoList = new TodoList();
 			this.todoList.on("add", this.renderTodoItem, this);
+			
 
 			this.filterTodos();
 
@@ -105,7 +143,7 @@ define(function(require, exports, module) {
 				model: item
 			});
 
-			this.$todosList.append(view.render().el);
+			this.$collection.$todosList.append(view.render().el);
 		},
 
 		/**
@@ -130,9 +168,7 @@ define(function(require, exports, module) {
 
 	});
 
-	var todoApp = window.todoApp = {};
-
-	todoApp.todoAppView = new TodoAppView();
+	var appTodos = window.appTodos = new TodoAppView();
 
 
 

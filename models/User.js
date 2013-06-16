@@ -3,8 +3,11 @@ var mongoose = require('mongoose'),
 
 //create schema for Todo
 var UserSchema = new Schema({
-	
+	username: '',
+	password: ''
 });
 
-//compile schema to model
-module.exports = mongoose.model('User', UserSchema);
+/**
+ * compile schema to model
+ */
+module.exports = mongoose.model('User', UserSchema, 'users');

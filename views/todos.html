@@ -4,12 +4,12 @@
         <% include /inc_head.html %>
         <link rel="stylesheet" type="text/css" href="/css/todos.css">
     </head>
-    <body id="todos-app">
+    <body id="app-todos">
         <% include /inc_navbar.html %>
 
         <div class="container todos-container">
 
-            <a href="#" class="btn btn-large btn-block">Add a Todo</a>
+            <a href="/add" class="btn btn-large btn-block">Add a Todo</a>
             
             <table class="table table-hover">
                 <thead>
@@ -18,7 +18,7 @@
                         <th>star</th>
                         <th>tag</th>
                         <th>title</th>
-                        <th>user</th>
+                        <th>user_id</th>
                         <th>done</th>
                         <th>编辑</th>
                         <th>删除</th>

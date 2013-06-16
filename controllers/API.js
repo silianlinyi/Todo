@@ -2,8 +2,7 @@ var Todo = require('../models/Todo'),
 	User = require('../models/User');
 
 /**
- * [exports description]
- * @type {Object}
+ * WebServices API
  */
 module.exports = {
 
@@ -13,20 +12,18 @@ module.exports = {
 	 */
 	loginIn: function(req, res) {
 		var user = req.body;
-
 		User.findOne(user, function(err, doc) {
 			if (err) {
 				console.log(err);
 			}
 
-			// 用户验证成功
+			// 用户验证成功，将用户名记在session中
 			if ( !! doc) {
-				req.session.loginName = user.loginName;
-				console.log(req.session.loginName);
-
+				req.session.username = user.username;
+				console.log("Log: user " + req.session.username + " login success!");
 				res.json({
 					resultCode: 0,
-					description: 'successful'
+					description: '登录成功'
 				});
 			} else {
 				res.json({
@@ -35,6 +32,15 @@ module.exports = {
 				});
 			}
 		});
+	},
+
+	/**
+	 * @method signup
+	 * 注册操作
+	 */
+	signup: function(req, res) {
+		var user = req.body;
+		res.json(user);
 	},
 
 	/**
@@ -55,19 +61,59 @@ module.exports = {
 	 * 添加一条Todo项
 	 */
 	addTodo: function(req, res) {
-		//create new model
-		var todo = new Todo(req.body);
+		var data = req.body,
+			username = req.session.username,
+			todo;
 
-		//save model to MongoDB
-		todo.save(function(err) {
+		User.findOne({
+			username: username
+		}, function(err, doc) {
 			if (err) {
-				return err;
-			} else {
-				console.log("todo saved");
+				console.log(err);
+			}
+
+			if ( !! doc) {
+				data.user_id = doc._id;
+				todo = new Todo(data);
+				todo.save(function(err) {
+					if (err) {
+						console.log(err);
+					}
+					res.json({
+						resultCode: 0,
+						description: "添加Todo成功"
+					});
+				});
 			}
 		});
+	},
 
-		res.send(req.body);
+	/**
+	 * @method deleteTodo
+	 * 删除一条Todo项
+	 */
+	deleteTodo: function(req, res) {
+		var query = req.body;
+
+		Todo.remove({
+			_id: query._id
+		}, function(err, doc) {
+			if(err) {
+				console.log(err);
+			}
+			res.json({
+				resultCode: 0,
+				description: "删除Todo成功"
+			});
+		});
+	},
+
+	/**
+	 * @method deleteTodo
+	 * 更新一条Todo项
+	 */
+	updateTodo: function(req, res) {
+
 	},
 
 	/**
@@ -75,11 +121,25 @@ module.exports = {
 	 * 根据传入的参数不同，来获取todo项
 	 */
 	filterTodos: function(req, res) {
-		Todo.find(req.query, function(err, docs) {
+		var query = req.query,
+			username = req.session.username,
+			_id;
+
+		User.findOne({
+			username: username
+		}, function(err, doc) {
 			if (err) {
 				console.log(err);
 			}
-			res.json(docs);
+			if ( !! doc) {
+				query.user_id = doc._id;
+				Todo.find(query, function(err, docs) {
+					if (err) {
+						console.log(err);
+					}
+					res.json(docs);
+				});
+			}
 		});
 	},
 
