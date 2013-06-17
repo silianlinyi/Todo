@@ -1,7 +1,5 @@
-Todo
-====
-
 Todo Application
+================
 
 前台：Backbone + jQuery + Underscore + Seajs
 
