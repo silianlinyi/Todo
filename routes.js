@@ -10,6 +10,7 @@ module.exports = function(app) {
 	app.get('/add', site.add);
 	app.get('/userInfo', site.userInfo);
 
+
 	/**
 	 * 以下为公共的GET API
 	 */
@@ -26,6 +27,15 @@ module.exports = function(app) {
 	app.post('/api/signup', API.signup);
 	app.post('/api/addTodo', API.addTodo);
 	app.post('/api/deleteTodo', API.deleteTodo);
+
+
+
+	app.get('/canvas', function(req, res){
+		res.render('canvas', {
+			title: "Canvas",
+			hasLogin: false
+		});
+	});
 
 	
 
