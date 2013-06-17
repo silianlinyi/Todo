@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 		Backbone = require('backbone');
 
 	var AppCanvas = Backbone.View.extend({
+
 		
 		el: "#app-canvas",
 
