@@ -37,6 +37,13 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/solarSystem', function(req, res) {
+		res.render('solarSystem', {
+			title: "Solar System",
+			hasLogin: false
+		});
+	});
+
 	
 
 }
